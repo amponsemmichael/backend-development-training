@@ -6,15 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.amponsem." >
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.amponsem.textprocessingtool.controllers.MainController">
     <children>
         <Label text="Text"/>
         <TextArea fx:id="textArea"/>
         <Label text="Regex Pattern"/>
-        <TextField fx:id="regexField "/>
+        <TextField fx:id="regexField"/>
         <Label text="Replace With"/>
         <TextField fx:id="replaceField" />
+        <Button fx:id="searchButton" text="Search"/>
+        <Button fx:id="matchButton" text="Match"/>
+        <Button fx:id="replaceButton" text="Replace"/>
     </children>
 </VBox>
