@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.amponsem." >
+    <children>
+        <Label text="Text"/>
+        <TextArea fx:id="textArea"/>
+        <Label text="Regex Pattern"/>
+        <TextField fx:id="regexField "/>
+        <Label text="Replace With"/>
+        <TextField fx:id="replaceField" />
+    </children>
+</VBox>
