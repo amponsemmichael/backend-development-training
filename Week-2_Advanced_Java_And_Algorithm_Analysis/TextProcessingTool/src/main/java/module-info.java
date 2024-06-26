@@ -1,5 +1,4 @@
 
-
 module com.amponsem.textprocessingtool {
         requires javafx.controls;
         requires javafx.fxml;
