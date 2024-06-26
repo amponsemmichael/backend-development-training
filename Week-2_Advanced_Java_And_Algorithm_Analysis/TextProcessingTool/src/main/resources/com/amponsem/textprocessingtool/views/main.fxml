@@ -6,15 +6,43 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.amponsem." >
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.amponsem.textprocessingtool.controllers.MainController">
+    <MenuBar>
+        <Menu text="File">
+            <MenuItem text="New" onAction="#handleMenuItemNewAction"/>
+            <MenuItem text="Open" onAction="#handleMenuItemOpenAction"/>
+            <MenuItem text="Save" onAction="#handleMenuItemSaveAction"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Exit" onAction="#handleMenuItemExitAction"/>
+        </Menu>
+        <Menu text="Edit">
+            <MenuItem text="Undo" onAction="#handleMenuItemUndoAction"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Cut" onAction="#handleMenuItemCutAction"/>
+            <MenuItem text="Copy" onAction="#handleMenuItemCopyAction"/>
+            <MenuItem text="Paste" onAction="#handleMenuItemPasteAction"/>
+            <MenuItem text="Delete" onAction="#handleMenuItemDeleteAction"/>
+        </Menu>
+        <Menu text="Format">
+            <MenuItem text="Word Wrap" onAction="#handleMenuItemWordWrapAction"/>
+        </Menu>
+        <Menu text="View">
+            <MenuItem text="Zoom In" onAction="#handleMenuItemZoomInAction"/>
+            <MenuItem text="Zoom Out" onAction="#handleMenuItemZoomOutAction"/>
+        </Menu>
+    </MenuBar>
     <children>
         <Label text="Text"/>
         <TextArea fx:id="textArea"/>
         <Label text="Regex Pattern"/>
-        <TextField fx:id="regexField "/>
+        <TextField fx:id="regexField"/>
         <Label text="Replace With"/>
-        <TextField fx:id="replaceField" />
+        <TextField fx:id="replaceField"/>
+        <Button fx:id="searchButton" text="Search" onAction="#handleSearchButtonAction"/>
+        <Button fx:id="matchButton" text="Match" onAction="#handleMatchButtonAction"/>
+        <Button fx:id="replaceButton" text="Replace" onAction="#handleReplaceButtonAction"/>
     </children>
 </VBox>
+
