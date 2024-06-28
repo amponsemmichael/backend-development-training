@@ -12,52 +12,44 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.ArrayList;
 
 public class MainController {
-    @FXML
-    private TextArea textArea;
-    @FXML
-    private TextField regexField;
-    @FXML
-    private TextField replaceField;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button matchButton;
-    @FXML
-    private Button replaceButton;
+    @FXML private TextArea textArea;
+    @FXML private TextField regexField;
+    @FXML private TextField replaceField;
+    @FXML private Button searchButton;
+    @FXML private Button matchButton;
+    @FXML private Button replaceButton;
 
-    @FXML
-    private MenuItem menuItemNew;
-    @FXML
-    private MenuItem menuItemOpen;
-    @FXML
-    private MenuItem menuItemSave;
-    @FXML
-    private MenuItem menuItemExit;
-    @FXML
-    private MenuItem menuItemUndo;
-    @FXML
-    private MenuItem menuItemCut;
-    @FXML
-    private MenuItem menuItemCopy;
-    @FXML
-    private MenuItem menuItemPaste;
-    @FXML
-    private MenuItem menuItemDelete;
-    @FXML
-    private MenuItem menuItemWordWrap;
-    @FXML
-    private MenuItem menuItemZoomIn;
-    @FXML
-    private MenuItem menuItemZoomOut;
+    @FXML private MenuItem menuItemNew;
+    @FXML private MenuItem menuItemOpen;
+    @FXML private MenuItem menuItemSave;
+    @FXML private MenuItem menuItemExit;
+    @FXML private MenuItem menuItemUndo;
+    @FXML private MenuItem menuItemRedo;
+    @FXML private MenuItem menuItemCut;
+    @FXML private MenuItem menuItemCopy;
+    @FXML private MenuItem menuItemPaste;
+    @FXML private MenuItem menuItemDelete;
+    @FXML private MenuItem menuItemWordWrap;
+    @FXML private MenuItem menuItemZoomIn;
+    @FXML private MenuItem menuItemZoomOut;
+
     private int lastMatchIndex = 0;
     private double zoomFactor = 1.0;
+
+    private ArrayList<int[]> searchResults = new ArrayList<>();
+    private ArrayList<String> undoStack= new ArrayList<>();
+    private ArrayList<String> redoStack = new ArrayList<>();
+
+
     @FXML
     public void initialize() {
         searchButton.setOnAction(e -> searchText());
         matchButton.setOnAction(e -> matchText());
         replaceButton.setOnAction(e -> replaceText());
+
     }
 
     private void searchText() {
@@ -66,7 +58,16 @@ public class MainController {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
+            int start = matcher.start();
+            int end = matcher.end();
+            searchResults.add(new int[]{start, end});
             textArea.selectRange(matcher.start(), matcher.end());
+            textArea.selectRange(start, end);
+        }
+        if(searchResults.isEmpty()){
+            showAlert("Search results", "No matches found");
+        } else {
+            showAlert("Search Results", searchResults.size() + "matches found");
         }
     }
     @FXML
@@ -129,7 +130,19 @@ public class MainController {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
         String replacedText = matcher.replaceAll(replacement);
+
+        undoStack.add(text);
         textArea.setText(replacedText);
+    }
+
+    private void redo() {
+        if(!redoStack.isEmpty()) {
+            String lastUndoState = redoStack.remove(redoStack.size() - 1);
+            undoStack.add(textArea.getText());
+            textArea.setText(lastUndoState);
+        } else {
+            showAlert("Redo", "No actions to redo");
+        }
     }
 
     private void showAlert(String title, String content) {
@@ -178,10 +191,13 @@ public class MainController {
         stage.close();
     }
 
-    @FXML private void handleMenuItemUndoAction(){
+  @FXML private void handleMenuItemUndoAction(){
         textArea.undo();
     }
 
+    @FXML private void handleMenuItemRedoAction(){
+        textArea.redo();
+    }
     @FXML private void handleMenuItemCutAction(){
         textArea.cut();
     }
