@@ -6,9 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.amponsem.textprocessingtool.controllers.MainController">
+      fx:controller="com.amponsem.textprocessingtool.controllers.MainController" spacing="10">
+    <padding>
+       <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+    <stylesheets>
+
+    </stylesheets>
     <MenuBar>
         <Menu text="File">
             <MenuItem text="New" onAction="#handleMenuItemNewAction"/>
@@ -19,6 +27,7 @@
         </Menu>
         <Menu text="Edit">
             <MenuItem text="Undo" onAction="#handleMenuItemUndoAction"/>
+            <MenuItem text="Redo" onAction="#handleMenuItemRedoAction"/>
             <SeparatorMenuItem/>
             <MenuItem text="Cut" onAction="#handleMenuItemCutAction"/>
             <MenuItem text="Copy" onAction="#handleMenuItemCopyAction"/>
@@ -34,15 +43,23 @@
         </Menu>
     </MenuBar>
     <children>
-        <Label text="Text"/>
-        <TextArea fx:id="textArea"/>
-        <Label text="Regex Pattern"/>
-        <TextField fx:id="regexField"/>
-        <Label text="Replace With"/>
-        <TextField fx:id="replaceField"/>
-        <Button fx:id="searchButton" text="Search" onAction="#handleSearchButtonAction"/>
-        <Button fx:id="matchButton" text="Match" onAction="#handleMatchButtonAction"/>
-        <Button fx:id="replaceButton" text="Replace" onAction="#handleReplaceButtonAction"/>
+        <BorderPane>
+            <center>
+                <VBox>
+                    <TextArea fx:id="textArea" prefWidth="600" prefHeight="400" wrapText="true" />
+                    <Label text="Regex Pattern"/>
+                    <TextField fx:id="regexField" prefWidth="200"/>
+                    <Label text="Replace With"/>
+                    <TextField fx:id="replaceField" prefWidth="200"/>
+                </VBox>
+            </center>
+            <bottom>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="searchButton" text="Search" onAction="#handleSearchButtonAction"/>
+                    <Button fx:id="matchButton" text="Match" onAction="#handleMatchButtonAction"/>
+                    <Button fx:id="replaceButton" text="Replace" onAction="#handleReplaceButtonAction"/>
+                </HBox>
+            </bottom>
+        </BorderPane>
     </children>
 </VBox>
-
