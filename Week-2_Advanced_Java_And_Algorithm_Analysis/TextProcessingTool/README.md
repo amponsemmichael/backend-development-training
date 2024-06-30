@@ -71,6 +71,7 @@ The user interface consists of:
 - The application should be responsive and provide feedback for actions.
 - It should handle large text files efficiently.
 - The user interface should be intuitive and easy to navigate.
+- The application should handle complex pattern such as URL, E-mail,etc
 
 ## Technical Requirements
 
